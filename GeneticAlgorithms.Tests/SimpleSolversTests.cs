@@ -1,4 +1,3 @@
-using System;
 using FluentAssertions;
 using GeneticAlgorithms.Knapsack;
 using Xunit;
