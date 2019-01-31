@@ -28,7 +28,7 @@ namespace GeneticAlgorithms
         }
     }
 
-    static class SimpleSolvers
+    public static class SimpleSolvers
     {
         public static Solution SmallestSizeFirst(Problem problem) => 
             FillKnapsack(problem, problem.Items.OrderBy(i => i.Size));
