@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using GeneticAlgorithms.Knapsack;
+using MoreLinq;
+using static GeneticAlgorithms.Sugar;
 
 namespace GeneticAlgorithms
 {
@@ -14,6 +17,14 @@ namespace GeneticAlgorithms
 
         public static Solution BestRatioFirst(Problem problem) => 
             FillKnapsack(problem, problem.Items.OrderByDescending(i => i.Value / (double) i.Size));
+
+        public static Func<Problem, Solution> Random(int seed, int population) =>
+            problem =>
+            {
+                var random = new Random(seed);
+                var solutions = Til(population).Select(i => FillKnapsack(problem, random.Shuffled(problem.Items)));
+                return solutions.MaxBy(s => s.TotalValue).First();
+            };
 
         static Solution FillKnapsack(Problem problem, IEnumerable<Item> orderedItems)
         {

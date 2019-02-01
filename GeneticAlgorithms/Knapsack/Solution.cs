@@ -17,7 +17,9 @@ namespace GeneticAlgorithms.Knapsack
             Validate();
         }
 
-        public string Description => $"Size: {Items.Sum(i => i.Size)}, Value: {Items.Sum(i => i.Value)}";
+        public string Description => $"Size: {TotalSize}, Value: {TotalValue}";
+        public int TotalValue => Items.Sum(i => i.Value);
+        public int TotalSize => Items.Sum(i => i.Size);
 
         void Validate()
         {
