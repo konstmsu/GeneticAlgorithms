@@ -29,59 +29,21 @@ namespace GeneticAlgorithms
                     return FillKnapsack(problem, items);
                 });
 
-                return Converge(solutions, s => s.TotalValue, noImprovementStreak);
+                return ConvergingSequence.Converge(solutions, s => s.TotalValue, noImprovementStreak);
             };
 
         public class ConvergeStatistics<T>
         {
             public readonly T BestItem;
-            public readonly int BestValue;
-            public readonly int IterationCount;
+            readonly int _iterationCount;
 
-            public ConvergeStatistics(T bestItem, int bestValue, int iterationCount)
+            public ConvergeStatistics(T bestItem, int iterationCount)
             {
                 BestItem = bestItem;
-                BestValue = bestValue;
-                IterationCount = iterationCount;
+                _iterationCount = iterationCount;
             }
 
-            public string Description => $"After {IterationCount:0,0} iterations";
-        }
-
-        public static ConvergeStatistics<T> Converge<T>(IEnumerable<T> items, Func<T, int> valueFunc,
-            int noImprovementsStreak)
-        {
-            using (var enumerator = items.GetEnumerator())
-            {
-                if (!enumerator.MoveNext())
-                    throw new Exception();
-
-                var totalCandidateCount = 0;
-                var bestIndex = 0;
-                var bestItem = enumerator.Current;
-                var bestValue = valueFunc(bestItem);
-
-                for (;; totalCandidateCount++)
-                {
-                    if (!enumerator.MoveNext())
-                        break;
-
-                    var item = enumerator.Current;
-                    var value = valueFunc(item);
-
-                    if (value >= bestValue)
-                    {
-                        bestValue = value;
-                        bestItem = item;
-                        bestIndex = totalCandidateCount;
-                    }
-
-                    if (totalCandidateCount - bestIndex >= noImprovementsStreak)
-                        break;
-                }
-
-                return new ConvergeStatistics<T>(bestItem, bestValue, totalCandidateCount);
-            }
+            public string Description => $"After {_iterationCount:0,0} iterations";
         }
 
         static Solution FillKnapsack(Problem problem, IEnumerable<Item> orderedItems)

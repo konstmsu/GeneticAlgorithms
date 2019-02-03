@@ -11,7 +11,7 @@ namespace GeneticAlgorithms.Tests
         public void ShuffledTests()
         {
             var random = new Random();
-            var sequence = Sugar.Til(10);
+            var sequence = Sugar.Til(10).ToList();
             var permutation = sequence.ToArray();
             random.Shuffle(permutation);
             permutation.Should().BeEquivalentTo(sequence);

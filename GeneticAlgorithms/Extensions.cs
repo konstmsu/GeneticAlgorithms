@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 
 namespace GeneticAlgorithms
 {
@@ -8,7 +7,7 @@ namespace GeneticAlgorithms
         public static void Shuffle<T>(this Random random, T[] items)
         {
             // Accepts array instead of IList for performance reasons
-            for (var i = items.Count() - 1; i > 0; i--)
+            for (var i = items.Length - 1; i > 0; i--)
             {
                 var j = random.Next(0, i);
                 (items[i], items[j]) = (items[j], items[i]);

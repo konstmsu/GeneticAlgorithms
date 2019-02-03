@@ -6,24 +6,24 @@ namespace GeneticAlgorithms.Knapsack
 {
     public class Solution
     {
-        public readonly Problem Problem;
-        public readonly IReadOnlyCollection<Item> Items;
+        readonly Problem _problem;
+        readonly IReadOnlyCollection<Item> _items;
 
         public Solution(Problem problem, IReadOnlyCollection<Item> items)
         {
-            Problem = problem;
-            Items = items;
+            _problem = problem;
+            _items = items;
 
             Validate();
         }
 
         public string Description => $"Size: {TotalSize}, Value: {TotalValue}";
-        public int TotalValue => Items.Sum(i => i.Value);
-        public int TotalSize => Items.Sum(i => i.Size);
+        public int TotalValue => _items.Sum(i => i.Value);
+        int TotalSize => _items.Sum(i => i.Size);
 
         void Validate()
         {
-            if (Items.Sum(i => i.Size) > Problem.SizeCapacity)
+            if (_items.Sum(i => i.Size) > _problem.SizeCapacity)
                 throw new Exception();
         }
     }
