@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GeneticAlgorithms.Knapsack;
-using MoreLinq;
 using static GeneticAlgorithms.Sugar;
 
 namespace GeneticAlgorithms
@@ -23,7 +22,12 @@ namespace GeneticAlgorithms
             {
                 var random = new Random(seed);
 
-                var solutions = Unbounded(() => FillKnapsack(problem, random.Shuffled(problem.Items)));
+                var items = problem.Items.ToArray();
+                var solutions = Unbounded(() =>
+                {
+                    random.Shuffle(items);
+                    return FillKnapsack(problem, items);
+                });
 
                 return Converge(solutions, s => s.TotalValue, noImprovementStreak);
             };

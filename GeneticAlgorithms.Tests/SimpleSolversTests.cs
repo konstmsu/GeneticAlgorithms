@@ -1,7 +1,6 @@
 using FluentAssertions;
 using GeneticAlgorithms.Knapsack;
 using Xunit;
-using static GeneticAlgorithms.Extensions;
 
 namespace GeneticAlgorithms.Tests
 {
@@ -23,7 +22,7 @@ namespace GeneticAlgorithms.Tests
         {
             var solution = SimpleSolvers.Random(42, 70_000)(Problem);
             $"{solution.Description} the best is {solution.BestItem.Description}"
-                .Should().Be("After 201,851 iterations the best is Size: 997, Value: 7974");
+                .Should().Be("After 106,187 iterations the best is Size: 997, Value: 8131");
         }
     }
 }
