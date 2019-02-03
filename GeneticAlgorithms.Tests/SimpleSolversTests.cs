@@ -21,8 +21,9 @@ namespace GeneticAlgorithms.Tests
         [Fact]
         public void RandomBaseline()
         {
-            SimpleSolvers.Random(seed: 42, population: 100_000)(Problem).Description.Should()
-                .Be("Size: 998, Value: 7901");
+            var solution = SimpleSolvers.Random(42, 70_000)(Problem);
+            $"{solution.Description} the best is {solution.BestItem.Description}"
+                .Should().Be("After 201,851 iterations the best is Size: 997, Value: 7974");
         }
     }
 }
